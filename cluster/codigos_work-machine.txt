@@ -1,0 +1,41 @@
+=> Comandos gerais necessários para execução
+
+-> sudo apt install net-tools
+-> sudo apt install openssh-server
+-> sudo apt install ifupdown
+
+
+=> Comandos para configurarmos nossa interface de rede
+
+-> sudo nano /etc/network/interfaces
+*após esse comando, digitamos as seguintes linhas:
+auto enp0s8
+iface enp0s8 inet static
+    address 192.168.1.100
+    netmask 255.255.255.0
+    network 192.168.1.0
+    broadcast 192.168.1.255
+
+-> sudo ifup enp0s8
+-> ifconfig (para vermos o endereço de IP, máscara de rede, etc)
+
+-> sudo hostnamectl set-hostname maq-principal.cluster.local
+-> sudo nano /etc/hosts
+* dentro dessa pasta, digitamos o comando abaixo:
+192.168.1.100 maq-principal.cluster.local
+-> hostname
+
+-> sudo nano /etc/hosts
+192.168.1.110 no1.cluster.local
+192.168.1.120 no2.cluster.local
+192.168.1.130 no3.cluster.local
+
+
+=> Comandos para configurar o SSH
+-> ssh-keygen
+-> .ssh/ (para gerar a chave)
+-> ssh-copy-id -i ~/.ssh/id_rsa.pub joaoserver1@no1.cluster.local
+-> ssh-copy-id -i ~/.ssh/id_rsa.pub joaoserver2@no2.cluster.local
+-> ssh-copy-id -i ~/.ssh/id_rsa.pub joaoserver3@no3.cluster.local
+
+-> ssh joaoserver1@no1.cluster.local (o mesmo para os outros)
