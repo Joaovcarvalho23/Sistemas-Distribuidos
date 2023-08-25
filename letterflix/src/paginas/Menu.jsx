@@ -34,7 +34,7 @@ export default function Menu() {
     <div>
       <Navbar />
       <Container maxWidth="xg" style={styles}>
-        <Grid container>
+        <Grid container spacing={3}>
           {filmes.map((filme) => (
             <Grid item xs={3} key={filme.id}>
               <CardFilmes
