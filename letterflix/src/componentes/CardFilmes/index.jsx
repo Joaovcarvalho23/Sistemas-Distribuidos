@@ -6,21 +6,16 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export default function CardFilmes() {
+export default function CardFilmes( {nome, dataEstreia, posterFilme}) {
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        alt="green iguana"
-        height="140"
-        image="/static/images/cards/contemplative-reptile.jpg"
-      />
+      <CardMedia component="img" height="400" image={posterFilme}/>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Filme
+          {nome}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          *descrição do filme(?)*
+          Data de estréia: {dataEstreia}
         </Typography>
       </CardContent>
       <CardActions>
