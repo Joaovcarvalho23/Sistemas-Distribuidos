@@ -72,4 +72,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 API_KEY: 332bf3a464fa6e428a995701bd2d29f2
 
-API: 'https://api.themoviedb.org/3/movie/popular?api_key=332bf3a464fa6e428a995701bd2d29f2&language=en-US&page=1'
+API_FILMES_POPULARES: 'https://api.themoviedb.org/3/movie/popular?api_key=332bf3a464fa6e428a995701bd2d29f2&language=en-US&page=1'
+

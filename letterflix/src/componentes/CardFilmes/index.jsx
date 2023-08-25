@@ -19,7 +19,7 @@ export default function CardFilmes( {nome, dataEstreia, posterFilme}) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Perfil do Filme</Button>
+        <Button size="small">Página do Filme</Button>
         <Button size="small">Adicionar à WatchList</Button>
       </CardActions>
     </Card>

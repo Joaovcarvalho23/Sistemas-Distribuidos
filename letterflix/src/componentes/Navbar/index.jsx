@@ -141,7 +141,7 @@ export default function Navbar({ filtro, setFiltro }) {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            LetterFlix
+            <Box component='img' src='/assets/LetterFlixLogo.png' height='3em' width='6em'/>
           </Typography>
           <Search>
             <SearchIconWrapper>
