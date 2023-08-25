@@ -38,7 +38,7 @@ export default function Menu() {
         <Grid container spacing={3}>
 
           {filmes.filter((filme) => filme.title.toLowerCase().includes(filtro.toLowerCase())).map((filme) => (
-            <Grid item xs={3} key={filme.id}>
+            <Grid item xs={12} sm={6} md={4} lg={3} key={filme.id}>
               <CardFilmes
                 nome={filme.title}
                 dataEstreia={filme.release_date}
