@@ -12,6 +12,10 @@ class SignUpForm(UserCreationForm):
         fields = ('username', 'email', 'password1', 'password2', 'age')
 
 class UserProfileChangeForm(UserChangeForm):
+    email = forms.EmailField(max_length=254, required=True)
+    age = forms.IntegerField(required=True)
+
     class Meta:
         model = UserProfile
-        fields = ('age',)
+        fields = ('email', 'age')
+        exclude = ('password',)

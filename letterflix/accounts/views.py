@@ -3,6 +3,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 from .forms import SignUpForm, UserProfileChangeForm
 from .models import UserProfile
 
@@ -48,11 +50,19 @@ def edit_profile(request):
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
-        form = UserProfileChangeForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            return redirect('accounts:dashboard')
+        fields_form = UserProfileChangeForm(request.POST, instance=request.user)
+        password_form = PasswordChangeForm(user=request.user, data=request.POST)
+        
+        if fields_form.is_valid():
+            fields_form.save()
+        
+        if password_form.is_valid():
+            user = password_form.save()
+            update_session_auth_hash(request, user)
+
+        return redirect('accounts:dashboard')
     else:
-        form = UserProfileChangeForm(instance=request.user)
+        fields_form = UserProfileChangeForm(instance=request.user)
+        password_form = PasswordChangeForm(user=request.user)
     
-    return render(request, 'accounts/edit_profile.html', {'form': form})
+    return render(request, 'accounts/edit_profile.html', {'fields_form': fields_form, 'password_form': password_form})

@@ -5,10 +5,20 @@
 </head>
 <body>
     <h2>Edit Profile</h2>
+
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ fields_form.as_p}}
         <button type="submit">Save Changes</button>
     </form>
+
+    <h4>Change Password</h4>
+    <form method="post">
+        {% csrf_token %}
+        {{ password_form.as_p }}
+        <button type="submit">Change Password</button>
+    </form>
+
+    <a href="{% url 'dashboard' %}">Back</a>
 </body>
 </html>
