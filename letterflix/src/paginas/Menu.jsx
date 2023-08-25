@@ -16,6 +16,7 @@ const styles = {
 
 export default function Menu() {
   const [filmes, setFilmes] = useState([]);
+  const [filtro, setFiltro] = useState('');
 
   const image_path = 'https://image.tmdb.org/t/p/w500';
 
@@ -32,10 +33,11 @@ export default function Menu() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar setFiltro={setFiltro} />
       <Container maxWidth="xg" style={styles}>
         <Grid container spacing={3}>
-          {filmes.map((filme) => (
+
+          {filmes.filter((filme) => filme.title.toLowerCase().includes(filtro.toLowerCase())).map((filme) => (
             <Grid item xs={3} key={filme.id}>
               <CardFilmes
                 nome={filme.title}

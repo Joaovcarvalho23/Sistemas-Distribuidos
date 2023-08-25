@@ -52,7 +52,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar({ filtro, setFiltro }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -148,8 +148,9 @@ export default function Navbar() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Buscar filme"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={(evento) => setFiltro(evento.target.value)}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
