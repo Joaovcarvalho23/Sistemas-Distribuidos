@@ -1,10 +1,11 @@
 import './App.css';
-import Menu from './paginas/Menu';
+//import Menu from './paginas/Menu';
+import { RotasDoApp } from './rotas';
 
 function App() {
   return (
-    <Menu/>
-  );
+  <RotasDoApp/>
+  )
 }
 
 export default App;

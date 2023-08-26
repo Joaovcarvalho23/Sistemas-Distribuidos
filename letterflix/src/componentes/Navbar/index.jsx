@@ -11,6 +11,7 @@ import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -52,7 +53,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Navbar({ filtro, setFiltro }) {
+export default function Navbar({ filtro, setFiltro, hideSearchBar }) {
+  const navigate = useNavigate()
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -141,18 +144,26 @@ export default function Navbar({ filtro, setFiltro }) {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            <Box component='img' src='/assets/LetterFlixLogo.png' height='3em' width='6em'/>
+            <Box component='img' src='/assets/LetterFlixLogo.png' 
+             height='3em' width='6em'
+             sx={{ cursor: "pointer"}}
+             onClick={() => navigate("/")}
+             />
+
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Buscar filme"
-              inputProps={{ 'aria-label': 'search' }}
-              onChange={(evento) => setFiltro(evento.target.value)}
-            />
-          </Search>
+            {hideSearchBar? null : (
+              <Search>
+                 <SearchIconWrapper>
+                    <SearchIcon />
+                 </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Busca filme"
+                  inputProps={{ 'aria-label': 'search' }}
+                  onChange={(evento) => setFiltro(evento.target.value)}
+                />
+              </Search>
+             )}
+          
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton

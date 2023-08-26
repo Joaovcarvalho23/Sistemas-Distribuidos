@@ -3,6 +3,8 @@ import CardFilmes from '../componentes/CardFilmes';
 import Navbar from '../componentes/Navbar';
 import { Container, Grid } from '@mui/material';
 import axios from 'axios';
+import { Box } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
 
 const styles = {
   backgroundColor: 'Yellow',
@@ -14,9 +16,11 @@ const styles = {
   justifyContent: 'center',
 };
 
-export default function Menu() {
+export default function Menu({setDadosFilmes}) {
   const [filmes, setFilmes] = useState([]);
   const [filtro, setFiltro] = useState('');
+
+  const navigate = useNavigate();
 
   const image_path = 'https://image.tmdb.org/t/p/w500';
 
@@ -31,6 +35,11 @@ export default function Menu() {
       .catch((err) => console.log(err));
   };
 
+  const moviePickHandler = (filmeData) =>{
+    setDadosFilmes(filmeData)
+    navigate('/perfilFilmes')
+  }
+
   return (
     <div>
       <Navbar setFiltro={setFiltro} />
@@ -39,11 +48,15 @@ export default function Menu() {
 
           {filmes.filter((filme) => filme.title.toLowerCase().includes(filtro.toLowerCase())).map((filme) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={filme.id}>
-              <CardFilmes
-                nome={filme.title}
-                dataEstreia={filme.release_date}
-                posterFilme={image_path + filme.poster_path}
-              />
+
+              <Box onClick ={() => moviePickHandler(filme.data)}>
+                <CardFilmes
+                  nome={filme.title}
+                  dataEstreia={filme.release_date}
+                  posterFilme={image_path + filme.poster_path}
+                />
+              </Box>
+
             </Grid>
           ))}
         </Grid>
