@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 
 export default function CardFilmes( {nome, dataEstreia, posterFilme}) {
+  
   return (
     <Card sx={{ maxWidth: 345 }}>
 

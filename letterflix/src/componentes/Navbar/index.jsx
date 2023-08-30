@@ -12,6 +12,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -97,7 +98,7 @@ export default function Navbar({ filtro, setFiltro, hideSearchBar }) {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Minha Conta</MenuItem>
-      <MenuItem onClick={handleMenuClose}>WatchList</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
     </Menu>
   );
 
@@ -162,9 +163,11 @@ export default function Navbar({ filtro, setFiltro, hideSearchBar }) {
                   onChange={(evento) => setFiltro(evento.target.value)}
                 />
               </Search>
+              
              )}
           
           <Box sx={{ flexGrow: 1 }} />
+          <Button onClick={() => { navigate('/watchList'); handleMenuClose(); }}>WatchList</Button>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
               size="large"
