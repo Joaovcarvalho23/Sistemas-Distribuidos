@@ -167,7 +167,7 @@ export default function Navbar({ filtro, setFiltro, hideSearchBar }) {
              )}
           
           <Box sx={{ flexGrow: 1 }} />
-          <Button onClick={() => { navigate('/watchList'); handleMenuClose(); }}>WatchList</Button>
+          <Button color="error" variant="outlined" onClick={() => { navigate('/watchList'); handleMenuClose(); }}>WatchList</Button>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
               size="large"
