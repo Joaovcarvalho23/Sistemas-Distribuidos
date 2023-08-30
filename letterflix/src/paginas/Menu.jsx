@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { Rodape } from '../componentes/Rodape';
 
 const styles = {
-  backgroundColor: 'Yellow',
+  backgroundColor: 'Black',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   backgroundRepeat: 'repeat',

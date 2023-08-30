@@ -25,7 +25,7 @@ export default function CardFilmes( {nome, dataEstreia, posterFilme}) {
       </CardActionArea>
 
       <CardActions>
-        <Button size="small">Adicionar à WatchList</Button>
+        <Button color="error" variant="contained" size="small">Adicionar à WatchList</Button>
       </CardActions>
     </Card>
   );
