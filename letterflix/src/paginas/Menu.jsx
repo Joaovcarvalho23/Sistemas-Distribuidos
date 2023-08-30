@@ -5,6 +5,7 @@ import { Container, Grid } from '@mui/material';
 import axios from 'axios';
 import { Box } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
+import { Rodape } from '../componentes/Rodape';
 
 const styles = {
   backgroundColor: 'Yellow',
@@ -61,6 +62,7 @@ export default function Menu({setDadosFilmes}) {
           ))}
         </Grid>
       </Container>
+      <Rodape />
     </div>
   );
 }
