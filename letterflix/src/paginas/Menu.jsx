@@ -31,10 +31,12 @@ export default function Menu({setDadosFilmes}) {
 
   const getFilmes = () => {
     axios
-      .get('https://api.themoviedb.org/3/movie/popular?api_key=332bf3a464fa6e428a995701bd2d29f2&language=pt-BR&page=1')
+      .get('https://api.themoviedb.org/3/discover/movie?api_key=332bf3a464fa6e428a995701bd2d29f2&language=pt-BR&primary_release_year=2023')
       .then((result) => setFilmes(result.data.results))
       .catch((err) => console.log(err));
   };
+
+  //'https://api.themoviedb.org/3/movie/popular?api_key=332bf3a464fa6e428a995701bd2d29f2&language=pt-BR&page=1' -> API ANTIGA
 
   const moviePickHandler = (filmeData) =>{
     setDadosFilmes(filmeData)
