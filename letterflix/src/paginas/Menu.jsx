@@ -17,11 +17,14 @@ const styles = {
   justifyContent: 'center',
 };
 
-export default function Menu({setDadosFilmes}) {
+export default function Menu({ setDadosFilmes }) {
   const [filmes, setFilmes] = useState([]);
   const [filtro, setFiltro] = useState('');
-
   const navigate = useNavigate();
+
+  const addToWatchlist = (filme) => {
+    setDadosFilmes((prevDadosFilmes) => [...prevDadosFilmes, filme]);
+  }
 
   const image_path = 'https://image.tmdb.org/t/p/w500';
 
@@ -43,6 +46,7 @@ export default function Menu({setDadosFilmes}) {
     navigate('/perfilFilmes')
     console.log(filmeData)
   }
+
   return (
     <div>
       <Navbar setFiltro={setFiltro} />
@@ -52,11 +56,13 @@ export default function Menu({setDadosFilmes}) {
           {filmes.filter((filme) => filme.title.toLowerCase().includes(filtro.toLowerCase())).map((filme) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={filme.id}>
 
-              <Box onClick ={() => moviePickHandler(filme)}>
+              <Box onClick={() => navigate('/perfilFilmes', { state: { filme } })}>
                 <CardFilmes
                   nome={filme.title}
                   dataEstreia={filme.release_date}
                   posterFilme={image_path + filme.poster_path}
+                  addToWatchlist={addToWatchlist}
+                  moviePickHandler={() => moviePickHandler(filme)}
                 />
               </Box>
 

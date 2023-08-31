@@ -13,7 +13,7 @@ export const RotasDoApp = () => {
       <Routes>
             <Route path = '/' element={<Menu setDadosFilmes={setDadosFilmes} />} />
             <Route path = '/perfilFilmes' element={<PerfilFilmes dadosFilmes={dadosFilmes}/>} />
-            <Route path = '/watchList' element={<WatchList dadosFilmes={dadosFilmes}/>} />
+            <Route path="/watchList" element={<WatchList dadosFilmes={dadosFilmes} />} />
         </Routes>
     </BrowserRouter>
   )

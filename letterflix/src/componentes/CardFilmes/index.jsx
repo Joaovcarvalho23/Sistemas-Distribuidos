@@ -7,13 +7,12 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 
-export default function CardFilmes( {nome, dataEstreia, posterFilme}) {
-  
+export default function CardFilmes({ nome, dataEstreia, posterFilme, addToWatchlist, moviePickHandler }) {
+
   return (
     <Card sx={{ maxWidth: 345 }}>
-
-      <CardActionArea>
-        <CardMedia component="img" height="400" image={posterFilme}/>
+      <CardActionArea onClick={moviePickHandler}> {/* Use o prop aqui */}
+        <CardMedia component="img" height="400" image={posterFilme} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {nome}
@@ -23,9 +22,15 @@ export default function CardFilmes( {nome, dataEstreia, posterFilme}) {
           </Typography>
         </CardContent>
       </CardActionArea>
-
       <CardActions>
-        <Button color="error" variant="contained" size="small">Adicionar à WatchList</Button>
+        <Button
+          color="error"
+          variant="contained"
+          size="small"
+          onClick={() => addToWatchlist({ nome, dataEstreia, posterFilme })}
+        >
+          Adicionar à WatchList
+        </Button>
       </CardActions>
     </Card>
   );
