@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { PerfilFilmes } from '../paginas/PerfilFilmes'
 import Menu from '../paginas/Menu'
 import { WatchList } from '../paginas/WatchList'
+import { TelaLogin } from '../paginas/TelaLogin'
 
 
 export const RotasDoApp = () => {
