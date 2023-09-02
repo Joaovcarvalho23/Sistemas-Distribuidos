@@ -74,3 +74,5 @@ API_KEY: 332bf3a464fa6e428a995701bd2d29f2
 
 API_FILMES_POPULARES: 'https://api.themoviedb.org/3/movie/popular?api_key=332bf3a464fa6e428a995701bd2d29f2&language=en-US&page=1'
 
+POST_METHOD: https://api.themoviedb.org /3/account/ {account_id} /watchlist
+{account_id}: 20349746
