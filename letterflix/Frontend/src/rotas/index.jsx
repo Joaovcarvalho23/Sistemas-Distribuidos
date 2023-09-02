@@ -4,6 +4,7 @@ import { PerfilFilmes } from '../paginas/PerfilFilmes'
 import Menu from '../paginas/Menu'
 import { WatchList } from '../paginas/WatchList'
 import { TelaLogin } from '../paginas/TelaLogin'
+import { TelaCadastro } from '../paginas/TelaCadastro'
 
 
 export const RotasDoApp = () => {
@@ -12,7 +13,9 @@ export const RotasDoApp = () => {
   return (
     <BrowserRouter>
       <Routes>
-            <Route path = '/' element={<Menu setDadosFilmes={setDadosFilmes} />} />
+            <Route path='/' element={<TelaLogin />}/>
+            <Route path='/cadastrar' element={<TelaCadastro />}/>
+            <Route path = '/menu' element={<Menu setDadosFilmes={setDadosFilmes} />} />
             <Route path = '/perfilFilmes' element={<PerfilFilmes dadosFilmes={dadosFilmes}/>} />
             <Route path="/watchList" element={<WatchList dadosFilmes={dadosFilmes} />} />
         </Routes>

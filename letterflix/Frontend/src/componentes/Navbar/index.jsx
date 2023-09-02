@@ -148,7 +148,7 @@ export default function Navbar({ filtro, setFiltro, hideSearchBar }) {
             <Box component='img' src='/assets/LetterFlixLogo.png' 
              height='3em' width='6em'
              sx={{ cursor: "pointer"}}
-             onClick={() => navigate("/")}
+             onClick={() => navigate("/menu")}
              />
 
           </Typography>
