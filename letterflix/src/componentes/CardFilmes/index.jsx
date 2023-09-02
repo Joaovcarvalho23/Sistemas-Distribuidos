@@ -5,27 +5,32 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
 
-export default function CardFilmes() {
+export default function CardFilmes({ nome, dataEstreia, posterFilme, addToWatchlist, moviePickHandler }) {
+
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        alt="green iguana"
-        height="140"
-        image="/static/images/cards/contemplative-reptile.jpg"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Filme
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          *descrição do filme(?)*
-        </Typography>
-      </CardContent>
+      <CardActionArea onClick={moviePickHandler}> {/* Use o prop aqui */}
+        <CardMedia component="img" height="400" image={posterFilme} />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {nome}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Data de estréia: {dataEstreia}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
       <CardActions>
-        <Button size="small">Perfil do Filme</Button>
-        <Button size="small">Adicionar à WatchList</Button>
+        <Button
+          color="error"
+          variant="contained"
+          size="small"
+          onClick={() => addToWatchlist({ nome, dataEstreia, posterFilme })}
+        >
+          Adicionar à WatchList
+        </Button>
       </CardActions>
     </Card>
   );

@@ -6,15 +6,13 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -56,7 +54,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar({ filtro, setFiltro, hideSearchBar }) {
+  const navigate = useNavigate()
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -98,7 +98,7 @@ export default function Navbar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Minha Conta</MenuItem>
-      <MenuItem onClick={handleMenuClose}>WatchList</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
     </Menu>
   );
 
@@ -136,7 +136,7 @@ export default function Navbar() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1}}>
       <AppBar position="static" sx={{ backgroundColor: 'black' }}>
         <Toolbar>
           <Typography
@@ -145,18 +145,29 @@ export default function Navbar() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            LetterFlix
+            <Box component='img' src='/assets/LetterFlixLogo.png' 
+             height='3em' width='6em'
+             sx={{ cursor: "pointer"}}
+             onClick={() => navigate("/")}
+             />
+
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
+            {hideSearchBar? null : (
+              <Search>
+                 <SearchIconWrapper>
+                    <SearchIcon />
+                 </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Busca filme"
+                  inputProps={{ 'aria-label': 'search' }}
+                  onChange={(evento) => setFiltro(evento.target.value)}
+                />
+              </Search>
+              
+             )}
+          
           <Box sx={{ flexGrow: 1 }} />
+          <Button color="error" variant="outlined" onClick={() => { navigate('/watchList'); handleMenuClose(); }}>WatchList</Button>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
               size="large"

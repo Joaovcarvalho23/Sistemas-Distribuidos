@@ -1,12 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
-import Menu from './paginas/Menu';
-import CardFilmes from './componentes/CardFilmes';
+//import Menu from './paginas/Menu';
+import { RotasDoApp } from './rotas';
 
 function App() {
   return (
-    <Menu/>
-  );
+  <RotasDoApp/>
+  )
 }
 
 export default App;
