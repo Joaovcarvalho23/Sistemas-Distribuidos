@@ -7,6 +7,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from .forms import SignUpForm, UserProfileChangeForm
 from .models import UserProfile
+from django.http import JsonResponse
 
 @login_required  # Isso garante que o usuário esteja autenticado para acessar essa página
 def dashboard(request):
@@ -34,10 +35,11 @@ def login(request):
         if form.is_valid():
             user = form.get_user()
             auth_login(request, user)
-            return redirect('dashboard')  # Redirecionar para a página de boas-vindas após o login
-    else:
-        form = AuthenticationForm()
-    return render(request, 'accounts/login.html', {'form': form})
+            # Você pode enviar uma resposta JSON para o Frontend
+            return JsonResponse({'success': True, 'message': 'Login bem-sucedido'})
+        else:
+            # Se o formulário não for válido, envie uma resposta JSON com os erros
+            return JsonResponse({'success': False, 'errors': form.errors})
 
 def logout(request):
     if request.method == 'POST':
