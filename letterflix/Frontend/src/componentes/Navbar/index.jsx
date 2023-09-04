@@ -11,7 +11,7 @@ import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
@@ -97,8 +97,13 @@ export default function Navbar({ filtro, setFiltro, hideSearchBar }) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Editar Conta</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+      <Link to='/editarPerfil'>
+        <MenuItem onClick={handleMenuClose}>Editar Conta</MenuItem>
+      </Link>
+
+      <Link to='/'>
+        <MenuItem onClick={handleMenuClose} >Logout</MenuItem>
+      </Link>
     </Menu>
   );
 

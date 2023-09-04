@@ -38,7 +38,7 @@ const TelaLogin = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar hideSearchBar/>
       <form onSubmit={handleFormSubmit}>
         <div>
           <label htmlFor="username">Username:</label>
@@ -61,8 +61,9 @@ const TelaLogin = () => {
           />
         </div>
         <button type="submit">Login</button>
-        <button sx={{ cursor: "pointer"}} onClick={() => navigate ("/cadastrar")}> 
-              Ainda não é nosso usuário?<p/> Cadastre-se clicando aqui!</button>
+        <Box>
+          <button sx={{ cursor: "pointer"}} onClick={() => navigate ("/cadastrar")}>Cadastre-se clicando aqui!</button>
+        </Box>
       </form>
     </div>
   );
