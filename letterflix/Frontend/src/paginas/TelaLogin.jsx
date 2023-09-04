@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import Navbar from '../componentes/Navbar';
 import axios from 'axios';
+import { Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const TelaLogin = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -16,22 +19,22 @@ const TelaLogin = () => {
     });
   };
 
-const handleFormSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await axios.post('http://127.0.0.1:8000/accounts/login/', formData);
-    if (response.data.success) {
-      // Login bem-sucedido, redirecionar ou exibir uma mensagem de sucesso
-      console.log(response.data.message);
-    } else {
-      // Login falhou, tratar erros
-      console.error(response.data.errors);
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+  
+    if (!formData.username || !formData.password) {
+      console.error("Preencha todos os campos.");
+      return;
     }
-  } catch (error) {
-    // Lidar com erros de rede ou outras exceções
-    console.error(error);
-  }
-};
+  
+    try {
+      await axios.post('http://127.0.0.1:8000/accounts/login/', formData).then((response) => {
+        navigate('/menu')
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };  
 
   return (
     <div>
@@ -58,6 +61,7 @@ const handleFormSubmit = async (e) => {
           />
         </div>
         <button type="submit">Login</button>
+        <Box sx={{ cursor: "pointer"}} onClick={() => navigate ("/cadastrar")}> Cadastre-se agora! </Box>
       </form>
     </div>
   );

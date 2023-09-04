@@ -7,39 +7,41 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from .forms import SignUpForm, UserProfileChangeForm
 from .models import UserProfile
-from django.http import JsonResponse
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
-@login_required  # Isso garante que o usuário esteja autenticado para acessar essa página
-def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
-
+@csrf_exempt
 def signup(request):
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
+        form_data = json.loads(request.body)
+        form = SignUpForm(form_data)
         if form.is_valid():
-            user = form.save(commit=False)  # Não salve o usuário ainda
-            age = form.cleaned_data['age']  # Obtenha a idade do formulário
+            user = form.save(commit=False)
+            age = form.cleaned_data['age']
             user.save()
 
-            # Agora que o usuário foi salvo, crie o UserProfile associado com a idade
             UserProfile.objects.create(user=user, age=age)
 
-            return redirect('dashboard')  # Redirecione para a página do usuário após o cadastro
-    else:
-        form = SignUpForm()
-    return render(request, 'accounts/signup.html', {'form': form})
+            return HttpResponse({'success': True, 'message': 'Cadastro bem-sucedido'})
+        else:
+            errors = {}
+            for field, error in form.errors.items():
+                errors[field] = error[0]
+            return HttpResponse({'success': False, 'errors': errors})
 
+    return HttpResponse("Método de solicitação não suportado.")
+
+@csrf_exempt
 def login(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        form = AuthenticationForm(request, data=json.loads(request.body))
         if form.is_valid():
             user = form.get_user()
             auth_login(request, user)
-            # Você pode enviar uma resposta JSON para o Frontend
-            return JsonResponse({'success': True, 'message': 'Login bem-sucedido'})
-        else:
-            # Se o formulário não for válido, envie uma resposta JSON com os erros
-            return JsonResponse({'success': False, 'errors': form.errors})
+            return HttpResponse("Login bem-sucedido. Redirecionando...")
+        return HttpResponse("Login falhou. Tente novamente.")
+    return HttpResponse("Método de solicitação não suportado.")
 
 def logout(request):
     if request.method == 'POST':
@@ -47,13 +49,15 @@ def logout(request):
         return redirect('login')  # Redirecione para a página inicial após o logout
     return render(request, 'accounts/logout.html')
 
+@csrf_exempt
 @login_required
 def edit_profile(request):
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
-        fields_form = UserProfileChangeForm(request.POST, instance=request.user)
-        password_form = PasswordChangeForm(user=request.user, data=request.POST)
+        data = json.loads(request.body)
+        fields_form = UserProfileChangeForm(data, instance=request.user)
+        password_form = PasswordChangeForm(user=request.user, data=data)
         
         if fields_form.is_valid():
             fields_form.save()
@@ -62,7 +66,7 @@ def edit_profile(request):
             user = password_form.save()
             update_session_auth_hash(request, user)
 
-        return redirect('accounts:dashboard')
+        return HttpResponse({'success': True, 'message': 'Perfil atualizado com sucesso'})
     else:
         fields_form = UserProfileChangeForm(instance=request.user)
         password_form = PasswordChangeForm(user=request.user)
