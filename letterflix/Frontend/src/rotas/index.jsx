@@ -4,7 +4,7 @@ import { PerfilFilmes } from '../paginas/PerfilFilmes'
 import Menu from '../paginas/Menu'
 import { WatchList } from '../paginas/WatchList'
 import TelaLogin from '../paginas/TelaLogin'
-import { TelaCadastro } from '../paginas/TelaCadastro'
+import  TelaCadastro  from '../paginas/TelaCadastro'
 import { EditarPerfil } from '../paginas/EditarPerfil'
 
 

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Navbar from '../componentes/Navbar';
 import axios from 'axios';
 import { Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -38,7 +37,6 @@ const TelaLogin = () => {
 
   return (
     <div>
-      <Navbar hideSearchBar/>
       <form onSubmit={handleFormSubmit}>
         <div>
           <label htmlFor="username">Username:</label>
