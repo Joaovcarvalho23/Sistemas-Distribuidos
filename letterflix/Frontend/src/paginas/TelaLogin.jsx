@@ -61,7 +61,8 @@ const TelaLogin = () => {
           />
         </div>
         <button type="submit">Login</button>
-        <Box sx={{ cursor: "pointer"}} onClick={() => navigate ("/cadastrar")}> Cadastre-se agora! </Box>
+        <button sx={{ cursor: "pointer"}} onClick={() => navigate ("/cadastrar")}> 
+              Ainda não é nosso usuário?<p/> Cadastre-se clicando aqui!</button>
       </form>
     </div>
   );
