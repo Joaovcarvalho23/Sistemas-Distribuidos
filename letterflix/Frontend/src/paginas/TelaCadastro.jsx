@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Container, CssBaseline, Typography, TextField, Button, Paper } from '@mui/material';
+import { Box, Container, CssBaseline, Typography, TextField, Button, Paper, Popover } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const TelaCadastro = () => {
@@ -10,6 +10,8 @@ const TelaCadastro = () => {
     password: '',
     age: '',
   });
+
+  const [showPopOver, setShowPopOver] = useState(false); // Estado para controlar a exibição do PopOver
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +31,11 @@ const TelaCadastro = () => {
 
     try {
       await axios.post('http://127.0.0.1:8000/accounts/signup/', formData).then((response) => {
-        navigate('/');
+        setShowPopOver(true); 
+        setTimeout(() => {
+          setShowPopOver(false); 
+          navigate('/'); 
+        }, 2500); 
         console.log(response.data);
       });
     } catch (error) {
@@ -40,14 +46,14 @@ const TelaCadastro = () => {
   return (
     <Paper
       sx={{
-        backgroundImage: 'url("/assets/fotoCinema.jpg")', // Adicione o caminho da sua imagem de fundo
+        backgroundImage: 'url("/assets/fotoCinema.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: '100vh', // Altura mínima da tela inteira
+        minHeight: '100vh',
         padding: '2rem',
       }}
     >
@@ -55,8 +61,8 @@ const TelaCadastro = () => {
       <Container component="main" maxWidth="xs">
         <img
           src="/assets/LetterFlixLogo.png"
-          alt="Logo" // Adicione um alt para acessibilidade
-          style={{ width: '420px', height: '200px', marginBottom: '1rem' }} // Largura e altura personalizadas
+          alt="Logo"
+          style={{ width: '420px', height: '200px', marginBottom: '1rem' }}
         />
         <Typography component="h1" variant="h5" sx={{ textAlign: 'center', color: 'white' }}>
           Bem-vindo(a) ao LetterFlix! O aplicativo com os filmes que estão bombando hoje nos cinemas!
@@ -67,40 +73,56 @@ const TelaCadastro = () => {
             margin="normal"
             required
             fullWidth
-            label="Crie seu usuário"
+            label="Usuário"
             name="username"
             value={formData.username}
             onChange={handleInputChange}
-            sx={{ backgroundColor: 'white' }} // Fundo branco
+            sx={{ backgroundColor: 'white' }}
           />
           <TextField
             variant="filled"
             margin="normal"
             required
             fullWidth
-            label="Crie sua senha"
+            label="Senha"
             type="password"
             name="password"
             value={formData.password}
             onChange={handleInputChange}
-            sx={{ backgroundColor: 'white' }} // Fundo branco
+            sx={{ backgroundColor: 'white' }}
           />
           <TextField
             variant="filled"
             margin="normal"
             required
             fullWidth
-            label="Informe sua idade"
+            label="Idade"
             type="number"
             name="age"
             value={formData.age}
             onChange={handleInputChange}
-            sx={{ backgroundColor: 'white' }} // Fundo branco
+            sx={{ backgroundColor: 'white' }}
           />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3 }}>
             Cadastrar
           </Button>
         </form>
+        {/* PopOver para exibir a mensagem */}
+        <Popover
+          open={showPopOver}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+        >
+          <Box p={2} bgcolor="primary.main" color="white">
+            Usuário cadastrado com sucesso!
+          </Box>
+        </Popover>
       </Container>
     </Paper>
   );
