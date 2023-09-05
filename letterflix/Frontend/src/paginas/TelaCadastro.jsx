@@ -7,9 +7,11 @@ const TelaCadastro = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
-    password: '',
+    email: '',
+    password1: '',
+    password2: '',
     age: '',
-  });
+  });  
 
   const [showPopOver, setShowPopOver] = useState(false); // Estado para controlar a exibição do PopOver
 
@@ -23,12 +25,12 @@ const TelaCadastro = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
-    if (!formData.username || !formData.password || !formData.age) {
+  
+    if (!formData.username || !formData.email || !formData.password1 || !formData.password2 || !formData.age) {
       console.error('Preencha todos os campos.');
       return;
     }
-
+  
     try {
       await axios.post('http://127.0.0.1:8000/accounts/signup/', formData).then((response) => {
         setShowPopOver(true); 
@@ -41,7 +43,7 @@ const TelaCadastro = () => {
     } catch (error) {
       console.error(error);
     }
-  };
+  };  
 
   return (
     <Paper
@@ -84,10 +86,33 @@ const TelaCadastro = () => {
             margin="normal"
             required
             fullWidth
+            label="Email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            sx={{ backgroundColor: 'white' }}
+          />
+          <TextField
+            variant="filled"
+            margin="normal"
+            required
+            fullWidth
             label="Senha"
             type="password"
-            name="password"
-            value={formData.password}
+            name="password1"
+            value={formData.password1}
+            onChange={handleInputChange}
+            sx={{ backgroundColor: 'white' }}
+          />
+          <TextField
+            variant="filled"
+            margin="normal"
+            required
+            fullWidth
+            label="Confirme a senha"
+            type="password"
+            name="password2"
+            value={formData.password2}
             onChange={handleInputChange}
             sx={{ backgroundColor: 'white' }}
           />
