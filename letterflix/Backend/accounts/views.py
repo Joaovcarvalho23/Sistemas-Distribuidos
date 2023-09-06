@@ -46,8 +46,6 @@ def login(request):
 def logout(request):
     if request.method == 'POST':
         auth_logout(request)
-        return redirect('login')  # Redirecione para a página inicial após o logout
-    return render(request, 'accounts/logout.html')
 
 @csrf_exempt
 @login_required

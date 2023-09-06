@@ -28,10 +28,14 @@ const TelaLogin = () => {
 
     try {
       await axios.post('http://127.0.0.1:8000/accounts/login/', formData).then((response) => {
-        navigate('/menu');
+        if (response.data === "Login bem-sucedido. Redirecionando...") {
+          navigate('/menu');
+        } else {
+          console.error('Erro no login:', response.data);
+        }
       });
     } catch (error) {
-      console.error(error);
+      console.error('Erro ao fazer login:', error);
     }
   };
 
