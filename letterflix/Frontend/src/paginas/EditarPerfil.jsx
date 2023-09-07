@@ -1,19 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Box, Container, CssBaseline, Typography, TextField, Button, Paper, Popover } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-const TelaCadastro = () => {
+const EditarPerfil = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     email: '',
-    password1: '',
-    password2: '',
     age: '',
-  });  
+  });
 
-  const [showPopOver, setShowPopOver] = useState(false); // Estado para controlar a exibição do PopOver
+  const [showPopOver, setShowPopOver] = useState(false);
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/accounts/edit_profile/')
+      .then((response) => {
+        const { username, email, age } = response.data;
+        setFormData({ username, email, age });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -25,25 +34,19 @@ const TelaCadastro = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-  
-    if (!formData.username || !formData.email || !formData.password1 || !formData.password2 || !formData.age) {
-      console.error('Preencha todos os campos.');
-      return;
-    }
-  
+
     try {
-      await axios.post('http://127.0.0.1:8000/accounts/signup/', formData).then((response) => {
-        setShowPopOver(true); 
-        setTimeout(() => {
-          setShowPopOver(false); 
-          navigate('/'); 
-        }, 2500); 
-        console.log(response.data);
-      });
+      await axios.post('http://127.0.0.1:8000/accounts/edit_profile/', formData);
+      setShowPopOver(true);
+
+      setTimeout(() => {
+        setShowPopOver(false);
+        navigate('/menu');
+      }, 2500);
     } catch (error) {
       console.error(error);
     }
-  };  
+  };
 
   return (
     <Paper
@@ -67,7 +70,7 @@ const TelaCadastro = () => {
           style={{ width: '420px', height: '200px', marginBottom: '1rem' }}
         />
         <Typography component="h1" variant="h5" sx={{ textAlign: 'center', color: 'white' }}>
-          Bem-vindo(a) ao LetterFlix! O aplicativo com os filmes que estão bombando hoje nos cinemas!
+          Editar Perfil
         </Typography>
         <form onSubmit={handleFormSubmit} style={{ width: '100%' }}>
           <TextField
@@ -97,30 +100,6 @@ const TelaCadastro = () => {
             margin="normal"
             required
             fullWidth
-            label="Senha"
-            type="password"
-            name="password1"
-            value={formData.password1}
-            onChange={handleInputChange}
-            sx={{ backgroundColor: 'white' }}
-          />
-          <TextField
-            variant="filled"
-            margin="normal"
-            required
-            fullWidth
-            label="Confirme a senha"
-            type="password"
-            name="password2"
-            value={formData.password2}
-            onChange={handleInputChange}
-            sx={{ backgroundColor: 'white' }}
-          />
-          <TextField
-            variant="filled"
-            margin="normal"
-            required
-            fullWidth
             label="Idade"
             type="number"
             name="age"
@@ -129,10 +108,9 @@ const TelaCadastro = () => {
             sx={{ backgroundColor: 'white' }}
           />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3 }}>
-            Cadastrar
+            Salvar Alterações
           </Button>
         </form>
-        {/* PopOver para exibir a mensagem */}
         <Popover
           open={showPopOver}
           anchorOrigin={{
@@ -145,7 +123,7 @@ const TelaCadastro = () => {
           }}
         >
           <Box p={2} bgcolor="primary.main" color="white">
-            Usuário cadastrado com sucesso!
+            Perfil atualizado com sucesso!
           </Box>
         </Popover>
       </Container>
@@ -153,4 +131,4 @@ const TelaCadastro = () => {
   );
 };
 
-export default TelaCadastro;
+export default EditarPerfil;
