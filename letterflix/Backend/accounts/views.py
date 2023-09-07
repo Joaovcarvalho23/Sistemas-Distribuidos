@@ -59,14 +59,12 @@ def edit_profile(request):
         
         if fields_form.is_valid():
             fields_form.save()
+            return HttpResponse({'success': True, 'message': 'Perfil atualizado com sucesso'})
         
         if password_form.is_valid():
             user = password_form.save()
             update_session_auth_hash(request, user)
-
-        return HttpResponse({'success': True, 'message': 'Perfil atualizado com sucesso'})
+            return HttpResponse({'success': True, 'message': 'Perfil atualizado com sucesso'})
     else:
         fields_form = UserProfileChangeForm(instance=request.user)
         password_form = PasswordChangeForm(user=request.user)
-    
-    return render(request, 'accounts/edit_profile.html', {'fields_form': fields_form, 'password_form': password_form})
